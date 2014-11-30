@@ -21,7 +21,7 @@ private:
 public:
 	static ImageContainer^ getContainer();
 
-	void create(PictureBox^ pictureBox);
+	void reDraw(PictureBox^ pictureBox);
 	
 	void pictureBox_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e);
 	
@@ -30,6 +30,8 @@ public:
 	void addFigure(Figure^ figure);
 
 	List<String^>^ getFigNames();
+
+	String^ createName(String^ figureType);
 };
 
 }

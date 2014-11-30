@@ -25,7 +25,7 @@ ImageContainer^ ImageContainer::getContainer() {
 	} return inner;
 }
 
-void ImageContainer::create(PictureBox^ pictureBox) {
+void ImageContainer::reDraw(PictureBox^ pictureBox) {
 	if(this->pictureBox!=nullptr)
 		{
 			this->pictureBox->Paint -= gcnew System::Windows::Forms::PaintEventHandler(this, &ImageContainer::pictureBox_Paint);
