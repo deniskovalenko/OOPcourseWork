@@ -13,6 +13,8 @@ protected:
 	Coordinates^ position;
 	Color color;
 	String^ name;
+	bool isSelected;
+	bool isVisible;
 public:
 	virtual void move(double dx, double dy)=0;
 	virtual void draw(Graphics^ g, Color^ color)=0;
@@ -26,6 +28,12 @@ public:
 
 	Coordinates^ Position();
 	void setPositon(Coordinates^ point);
+
+	void Unselect();
+	void Select();
+
+	bool checkVisible();
+	void setVisible(bool isVisible);
 };
 
 }

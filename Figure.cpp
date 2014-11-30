@@ -6,6 +6,7 @@ Figure::Figure(String^ name, Color color, Coordinates^ position) {
 	this->name=name;
 	this->color=color;
 	this->position=position;
+	this->isVisible=true;
 }
 
 Color Figure::getColor() {
@@ -30,4 +31,25 @@ Coordinates^ Figure::Position() {
 void Figure::setPositon(Coordinates^ point) {
 	this->position=point;
 }
+
+void Figure::Select()
+{
+	this->isSelected = true;
+}
+
+void Figure::Unselect()
+{
+	this->isSelected = false;
+}
+
+bool Figure::checkVisible()
+{
+	return this->isVisible;
+}
+
+void Figure::setVisible(bool isVisible)
+{
+	this->isVisible = isVisible;
+}
+
 }

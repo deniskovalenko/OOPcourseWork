@@ -59,4 +59,12 @@ List<String^>^ ImageContainer::getFigNames() {
 		return names;
 }
 
+String^ ImageContainer::createName(String^ figureType) {
+	List<String^>^ tmp = getFigNames();
+	int count = 1;
+		while(tmp->Contains(figureType+count.ToString()))
+			count++;
+		return figureType + count.ToString();
+}
+
 }
