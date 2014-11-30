@@ -1,5 +1,7 @@
 #include "StdAfx.h"
 #include "Coordinates.h"
+namespace CourseWork {
+
 
 	Coordinates::Coordinates(double x, double y) {
 		this->x=x;
@@ -29,3 +31,5 @@
 	{
 		this->y = y;
 	}
+
+}

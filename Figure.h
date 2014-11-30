@@ -10,6 +10,7 @@ protected:
 	Color color;
 	String^ name;
 public:
+	Figure(String^ name, Color color, Coordinates^ position);
 	void setName(String^ newName);
 	String^ getName();
 

@@ -2,6 +2,12 @@
 #include "Figure.h"
 namespace CourseWork {
 
+Figure::Figure(String^ name, Color color, Coordinates^ position) {
+	this->name=name;
+	this->color=color;
+	this->position=position;
+}
+
 Color Figure::getColor() {
 	return this->color;
 }
