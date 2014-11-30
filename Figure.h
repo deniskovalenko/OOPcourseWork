@@ -29,8 +29,8 @@ public:
 	Coordinates^ Position();
 	void setPositon(Coordinates^ point);
 
-	void Unselect();
-	void Select();
+	void unselect();
+	void select();
 
 	bool checkVisible();
 	void setVisible(bool isVisible);

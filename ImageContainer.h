@@ -17,7 +17,7 @@ private:
 	static ImageContainer^ inner = nullptr;
 	List<Figure^>^ figures;
 	PictureBox^ pictureBox;
-	
+	Figure^ current;
 public:
 	static ImageContainer^ getContainer();
 
@@ -32,6 +32,18 @@ public:
 	List<String^>^ getFigNames();
 
 	String^ createName(String^ figureType);
+
+	void selectByName( String^ name );
+
+	void unselect();
+
+	Figure^ getFigureByName(String^ name);
+
+	Figure^ getCurrent();
+
+	void deleteCurrent();
+
+	void deleteByName(String^ name);
 };
 
 }

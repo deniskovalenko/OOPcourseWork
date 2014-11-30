@@ -32,12 +32,12 @@ void Figure::setPositon(Coordinates^ point) {
 	this->position=point;
 }
 
-void Figure::Select()
+void Figure::select()
 {
 	this->isSelected = true;
 }
 
-void Figure::Unselect()
+void Figure::unselect()
 {
 	this->isSelected = false;
 }

@@ -15,6 +15,8 @@ namespace CourseWork {
 ImageContainer::ImageContainer(void)
 {
 	figures = gcnew List<Figure^>();
+	
+	Figure^ current = nullptr;
 }
 
 ImageContainer^ ImageContainer::getContainer() {
@@ -50,6 +52,7 @@ void ImageContainer::addFigure(Figure^ figure) {
 			}
 		}
 		figures->Add(figure);
+		selectByName(figure->getName());
 }
 
 List<String^>^ ImageContainer::getFigNames() {
@@ -65,6 +68,57 @@ String^ ImageContainer::createName(String^ figureType) {
 		while(tmp->Contains(figureType+count.ToString()))
 			count++;
 		return figureType + count.ToString();
+}
+
+void ImageContainer::selectByName( String^ name )
+{
+	if(current!=nullptr)
+		{current->unselect();}
+	Figure^ tmp = getFigureByName(name);
+	if(tmp != nullptr)
+		{tmp->select();}
+	current = tmp;
+}
+
+void ImageContainer::unselect()
+{
+	if(current!=nullptr) 
+		{current->unselect();}
+	current = nullptr;
+}
+Figure^ ImageContainer::getFigureByName(String^ name) {
+		for each(Figure^ figure in figures)
+		{
+			if(figure->getName() == name)
+			{
+				return figure;
+			}
+		}
+		return nullptr;
+}
+
+Figure^ ImageContainer::getCurrent() {
+	return current;
+}
+void ImageContainer::deleteCurrent() {
+	if(current!=nullptr)
+		{
+			deleteByName(current->getName());
+		}
+}
+
+void ImageContainer::deleteByName(String^ name) {
+	for(int i = 0; i<figures->Count; i++)
+		{
+			if(figures[i]->getName() == name)
+			{
+				if (figures[i]==current) {
+				current=nullptr;
+			}
+				figures->RemoveAt(i);
+				break;
+			}
+		}
 }
 
 }
