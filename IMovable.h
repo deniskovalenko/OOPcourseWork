@@ -1,7 +1,10 @@
 #pragma once
-ref class IMovable
+namespace CourseWork {
+
+interface class IMovable
 {
 public:
 	virtual void move(double dx, double dy)=0;
 };
 
+}

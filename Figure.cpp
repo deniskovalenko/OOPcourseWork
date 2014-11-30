@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "Figure.h"
+namespace CourseWork {
 
 Color Figure::getColor() {
 	return this->color;
@@ -22,4 +23,5 @@ Coordinates^ Figure::Position() {
 }
 void Figure::setPositon(Coordinates^ point) {
 	this->position=point;
+}
 }

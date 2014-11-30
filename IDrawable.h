@@ -1,7 +1,9 @@
 #pragma once
-ref class IDrawable abstract
+namespace CourseWork {
+interface class IDrawable
 {
 public:
 	virtual void draw()=0;
 };
 
+}

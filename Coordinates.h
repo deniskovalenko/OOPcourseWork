@@ -1,4 +1,7 @@
 #pragma once
+
+namespace CourseWork {
+
 ref class Coordinates
 {
 private:
@@ -14,3 +17,4 @@ public:
 	void setY(double y);
 };
 
+}

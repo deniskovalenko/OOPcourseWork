@@ -2,7 +2,7 @@
 #include "Coordinates.h"
 using namespace System;
 using namespace System::Drawing;
-
+namespace CourseWork {
 ref class Figure
 {
 protected:
@@ -20,3 +20,4 @@ public:
 	void setPositon(Coordinates^ point);
 };
 
+}
