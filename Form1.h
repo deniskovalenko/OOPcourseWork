@@ -74,10 +74,11 @@ namespace CourseWork {
 	private: System::Windows::Forms::ComboBox^  select_figure;
 	private: System::Windows::Forms::Button^  change_btn;
 
-	private: System::Windows::Forms::CheckBox^  selected;
+
 	private: System::Windows::Forms::TextBox^  dy;
 	private: System::Windows::Forms::TextBox^  dx;
 	private: System::Windows::Forms::Button^  remove_figure;
+	private: System::Windows::Forms::CheckBox^  visible;
 
 
 
@@ -109,9 +110,9 @@ namespace CourseWork {
 			this->label_x1 = (gcnew System::Windows::Forms::Label());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
 			this->gb_actions = (gcnew System::Windows::Forms::GroupBox());
+			this->visible = (gcnew System::Windows::Forms::CheckBox());
 			this->remove_figure = (gcnew System::Windows::Forms::Button());
 			this->change_btn = (gcnew System::Windows::Forms::Button());
-			this->selected = (gcnew System::Windows::Forms::CheckBox());
 			this->dy = (gcnew System::Windows::Forms::TextBox());
 			this->dx = (gcnew System::Windows::Forms::TextBox());
 			this->select_figure = (gcnew System::Windows::Forms::ComboBox());
@@ -245,9 +246,9 @@ namespace CourseWork {
 			// 
 			// gb_actions
 			// 
+			this->gb_actions->Controls->Add(this->visible);
 			this->gb_actions->Controls->Add(this->remove_figure);
 			this->gb_actions->Controls->Add(this->change_btn);
-			this->gb_actions->Controls->Add(this->selected);
 			this->gb_actions->Controls->Add(this->dy);
 			this->gb_actions->Controls->Add(this->dx);
 			this->gb_actions->Controls->Add(this->select_figure);
@@ -257,15 +258,28 @@ namespace CourseWork {
 			this->gb_actions->Controls->Add(this->label1);
 			this->gb_actions->Location = System::Drawing::Point(602, 47);
 			this->gb_actions->Name = L"gb_actions";
-			this->gb_actions->Size = System::Drawing::Size(166, 201);
+			this->gb_actions->Size = System::Drawing::Size(166, 293);
 			this->gb_actions->TabIndex = 5;
 			this->gb_actions->TabStop = false;
 			this->gb_actions->Text = L"Actions";
 			this->gb_actions->Visible = false;
 			// 
+			// visible
+			// 
+			this->visible->AutoSize = true;
+			this->visible->Checked = true;
+			this->visible->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->visible->Location = System::Drawing::Point(13, 57);
+			this->visible->Name = L"visible";
+			this->visible->Size = System::Drawing::Size(55, 17);
+			this->visible->TabIndex = 16;
+			this->visible->Text = L"visible";
+			this->visible->UseVisualStyleBackColor = true;
+			this->visible->CheckedChanged += gcnew System::EventHandler(this, &Form1::visible_CheckedChanged);
+			// 
 			// remove_figure
 			// 
-			this->remove_figure->Location = System::Drawing::Point(31, 172);
+			this->remove_figure->Location = System::Drawing::Point(31, 194);
 			this->remove_figure->Name = L"remove_figure";
 			this->remove_figure->Size = System::Drawing::Size(88, 23);
 			this->remove_figure->TabIndex = 15;
@@ -275,7 +289,7 @@ namespace CourseWork {
 			// 
 			// change_btn
 			// 
-			this->change_btn->Location = System::Drawing::Point(31, 144);
+			this->change_btn->Location = System::Drawing::Point(31, 166);
 			this->change_btn->Name = L"change_btn";
 			this->change_btn->Size = System::Drawing::Size(88, 23);
 			this->change_btn->TabIndex = 14;
@@ -283,18 +297,9 @@ namespace CourseWork {
 			this->change_btn->UseVisualStyleBackColor = true;
 			this->change_btn->Click += gcnew System::EventHandler(this, &Form1::change_btn_Click);
 			// 
-			// selected
-			// 
-			this->selected->AutoSize = true;
-			this->selected->Location = System::Drawing::Point(137, 22);
-			this->selected->Name = L"selected";
-			this->selected->Size = System::Drawing::Size(15, 14);
-			this->selected->TabIndex = 13;
-			this->selected->UseVisualStyleBackColor = true;
-			// 
 			// dy
 			// 
-			this->dy->Location = System::Drawing::Point(79, 87);
+			this->dy->Location = System::Drawing::Point(79, 109);
 			this->dy->Name = L"dy";
 			this->dy->Size = System::Drawing::Size(69, 20);
 			this->dy->TabIndex = 12;
@@ -302,7 +307,7 @@ namespace CourseWork {
 			// 
 			// dx
 			// 
-			this->dx->Location = System::Drawing::Point(79, 61);
+			this->dx->Location = System::Drawing::Point(79, 83);
 			this->dx->Name = L"dx";
 			this->dx->Size = System::Drawing::Size(69, 20);
 			this->dx->TabIndex = 11;
@@ -320,7 +325,7 @@ namespace CourseWork {
 			// label3
 			// 
 			this->label3->AutoSize = true;
-			this->label3->Location = System::Drawing::Point(10, 90);
+			this->label3->Location = System::Drawing::Point(10, 112);
 			this->label3->Name = L"label3";
 			this->label3->Size = System::Drawing::Size(47, 13);
 			this->label3->TabIndex = 9;
@@ -329,7 +334,7 @@ namespace CourseWork {
 			// label2
 			// 
 			this->label2->AutoSize = true;
-			this->label2->Location = System::Drawing::Point(10, 61);
+			this->label2->Location = System::Drawing::Point(10, 83);
 			this->label2->Name = L"label2";
 			this->label2->Size = System::Drawing::Size(47, 13);
 			this->label2->TabIndex = 9;
@@ -338,7 +343,7 @@ namespace CourseWork {
 			// action_color
 			// 
 			this->action_color->BackColor = System::Drawing::SystemColors::MenuHighlight;
-			this->action_color->Location = System::Drawing::Point(79, 113);
+			this->action_color->Location = System::Drawing::Point(79, 135);
 			this->action_color->Name = L"action_color";
 			this->action_color->Size = System::Drawing::Size(69, 23);
 			this->action_color->TabIndex = 8;
@@ -348,7 +353,7 @@ namespace CourseWork {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(15, 118);
+			this->label1->Location = System::Drawing::Point(15, 140);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(31, 13);
 			this->label1->TabIndex = 7;
@@ -436,12 +441,13 @@ private: System::Void remove_figure_Click(System::Object^  sender, System::Event
 private: System::Void change_btn_Click(System::Object^  sender, System::EventArgs^  e) {
 			 double deltax = Convert::ToDouble(dx->Text);
 			 double deltay = Convert::ToDouble(dy->Text);
-			if (ImageContainer::getContainer()->getCurrent()!=nullptr) {
-			 ImageContainer::getContainer()->getCurrent()->setColor(*tmpColor);
-			 ImageContainer::getContainer()->getCurrent()->move(deltax,deltay);
+		if (ImageContainer::getContainer()->getCurrent()!=nullptr) {
+			 Figure^ current = ImageContainer::getContainer()->getCurrent(); 
+			 current->setColor(*tmpColor);
+			 current->move(deltax,deltay);
 			 ImageContainer::getContainer()->reDraw(this->pictureWindow);
-			}
-		 }
+		}
+}
 private: System::Void select_figure_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 			 if(select_figure->SelectedIndex!=-1)
 			 { 
@@ -451,6 +457,10 @@ private: System::Void select_figure_SelectedIndexChanged(System::Object^  sender
 			 {
 				ImageContainer::getContainer()->unselect();
 			 }
+		 }
+private: System::Void visible_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+			ImageContainer::getContainer()->getCurrent()->setVisible(visible->Checked);
+			ImageContainer::getContainer()->reDraw(this->pictureWindow);
 		 }
 };
 

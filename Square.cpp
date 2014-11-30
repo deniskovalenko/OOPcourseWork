@@ -11,6 +11,7 @@ void Square::move(double dx, double dy){
 	this->position = gcnew Coordinates(this->position->getX()+dx,this->position->getY()+dy);
 }
 void Square::draw( Graphics^ g, Color^ color) {
+	if (checkVisible()) {
 	PointF^ leftup = gcnew PointF(this->position->getX()-(this->side)/2, this->position->getY()+(this->side)/2 );
 	PointF^ rightup = gcnew PointF(this->position->getX()+(this->side)/2, this->position->getY()+(this->side)/2 );
 
@@ -21,6 +22,7 @@ void Square::draw( Graphics^ g, Color^ color) {
 	g->DrawLine(gcnew Pen(*color), *leftdown, *rightdown);
 	g->DrawLine(gcnew Pen(*color), *leftup, *leftdown);
 	g->DrawLine(gcnew Pen(*color), *rightup, *rightdown);
+	}
 }
 
 }
