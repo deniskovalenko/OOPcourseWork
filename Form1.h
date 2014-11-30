@@ -1,4 +1,5 @@
 #pragma once
+#include "Square.h"
 
 namespace CourseWork {
 
@@ -34,6 +35,9 @@ namespace CourseWork {
 				delete components;
 			}
 		}
+	private: System::Windows::Forms::PictureBox^  pictureBox1;
+	protected: 
+	private: System::Windows::Forms::Button^  button1;
 
 	private:
 		/// <summary>
@@ -48,19 +52,56 @@ namespace CourseWork {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
+			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->BackColor = System::Drawing::SystemColors::Window;
+			this->pictureBox1->Location = System::Drawing::Point(377, 33);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(239, 207);
+			this->pictureBox1->TabIndex = 0;
+			this->pictureBox1->TabStop = false;
+			this->pictureBox1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Form1::pictureBox1_Paint);
+			// 
+			// button1
+			// 
+			this->button1->Location = System::Drawing::Point(69, 74);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 1;
+			this->button1->Text = L"button1";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
 			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(832, 349);
+			this->Controls->Add(this->button1);
+			this->Controls->Add(this->pictureBox1);
 			this->Name = L"Form1";
 			this->Text = L"Form1";
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 
-		}
+		}										
 #pragma endregion
+	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+				
+			
+			 }
+
+	private: System::Void pictureBox1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
+				 	 Graphics^ g = e->Graphics;
+					 //Graphics::FromImage(pictureBox1->Image); // from image??
+				 Square^ s = gcnew Square("First Square", Color::Blue, 10, 20, 10);
+				 s->draw(g, s->getColor());
+			 }
 	};
 }
 
