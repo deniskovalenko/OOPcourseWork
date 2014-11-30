@@ -1,5 +1,6 @@
 #pragma once
 #include "Square.h"
+#include "ImageContainer.h"
 
 namespace CourseWork {
 
@@ -38,6 +39,7 @@ namespace CourseWork {
 	private: System::Windows::Forms::PictureBox^  pictureBox1;
 	protected: 
 	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  button2;
 
 	private:
 		/// <summary>
@@ -54,6 +56,7 @@ namespace CourseWork {
 		{
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
@@ -65,7 +68,6 @@ namespace CourseWork {
 			this->pictureBox1->Size = System::Drawing::Size(239, 207);
 			this->pictureBox1->TabIndex = 0;
 			this->pictureBox1->TabStop = false;
-			this->pictureBox1->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &Form1::pictureBox1_Paint);
 			// 
 			// button1
 			// 
@@ -77,31 +79,65 @@ namespace CourseWork {
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
 			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(69, 104);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 23);
+			this->button2->TabIndex = 2;
+			this->button2->Text = L"button2";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &Form1::button2_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(832, 349);
+			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
 			this->Controls->Add(this->pictureBox1);
 			this->Name = L"Form1";
 			this->Text = L"Form1";
+			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 
 		}										
 #pragma endregion
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-				
+
+				this->pictureBox1->Paint += gcnew System::Windows::Forms::PaintEventHandler( this, &Form1::pictureBox1_Paint );;
+				this->pictureBox1->Refresh();
 			
 			 }
 
 	private: System::Void pictureBox1_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 				 	 Graphics^ g = e->Graphics;
 					 //Graphics::FromImage(pictureBox1->Image); // from image??
-				 Square^ s = gcnew Square("First Square", Color::Blue, 10, 20, 10);
-				 s->draw(g, s->getColor());
+				//// Square^ s = gcnew Square("First Square", Color::Blue, 10, 20, 10);
+				// s->draw(g, s->getColor());
+				//  Square^ ss = gcnew Square("Second Square", Color::Red, 100, 100, 30);
+				// ss->draw(g, ss->getColor());
+				// s->move(5,10);
+				// s->draw(g, s->getColor());
 			 }
-	};
+	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
+				 //Image container
+
+				// ImageContainer::getContainer()->create(this->pictureBox1);
+			 }
+	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+			    ImageContainer::getContainer()->addFigure(gcnew Square("First Square", Color::Blue, 10, 20, 10));
+				// s->draw(g, s->getColor());
+				ImageContainer::getContainer()->addFigure(gcnew Square("Second Square", Color::Red, 100, 100, 30));
+				// ss->draw(g, ss->getColor());
+				ImageContainer::getContainer()->create(this->pictureBox1);
+				ImageContainer::getContainer()->getFigNames();
+				// s->move(5,10);
+				// s->draw(g, s->getColor());
+				 
+			 }
+};
 }
 
