@@ -79,6 +79,8 @@ namespace CourseWork {
 	private: System::Windows::Forms::TextBox^  dx;
 	private: System::Windows::Forms::Button^  remove_figure;
 	private: System::Windows::Forms::CheckBox^  visible;
+	private: System::Windows::Forms::GroupBox^  groupBox1;
+	private: System::Windows::Forms::Button^  btn_restore;
 
 
 
@@ -110,6 +112,8 @@ namespace CourseWork {
 			this->label_x1 = (gcnew System::Windows::Forms::Label());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
 			this->gb_actions = (gcnew System::Windows::Forms::GroupBox());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->btn_restore = (gcnew System::Windows::Forms::Button());
 			this->visible = (gcnew System::Windows::Forms::CheckBox());
 			this->remove_figure = (gcnew System::Windows::Forms::Button());
 			this->change_btn = (gcnew System::Windows::Forms::Button());
@@ -123,6 +127,7 @@ namespace CourseWork {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureWindow))->BeginInit();
 			this->squareGroup->SuspendLayout();
 			this->gb_actions->SuspendLayout();
+			this->groupBox1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// pictureWindow
@@ -182,7 +187,7 @@ namespace CourseWork {
 			this->btn_sq_color->Size = System::Drawing::Size(56, 23);
 			this->btn_sq_color->TabIndex = 7;
 			this->btn_sq_color->UseVisualStyleBackColor = false;
-			this->btn_sq_color->Click += gcnew System::EventHandler(this, &Form1::btn_color_changed);
+			this->btn_sq_color->Click += gcnew System::EventHandler(this, &Form1::btn_color_create);
 			// 
 			// label_color1
 			// 
@@ -246,6 +251,7 @@ namespace CourseWork {
 			// 
 			// gb_actions
 			// 
+			this->gb_actions->Controls->Add(this->groupBox1);
 			this->gb_actions->Controls->Add(this->visible);
 			this->gb_actions->Controls->Add(this->remove_figure);
 			this->gb_actions->Controls->Add(this->change_btn);
@@ -263,6 +269,25 @@ namespace CourseWork {
 			this->gb_actions->TabStop = false;
 			this->gb_actions->Text = L"Actions";
 			this->gb_actions->Visible = false;
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->Controls->Add(this->btn_restore);
+			this->groupBox1->Location = System::Drawing::Point(6, 223);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(154, 64);
+			this->groupBox1->TabIndex = 17;
+			this->groupBox1->TabStop = false;
+			// 
+			// btn_restore
+			// 
+			this->btn_restore->Location = System::Drawing::Point(6, 10);
+			this->btn_restore->Name = L"btn_restore";
+			this->btn_restore->Size = System::Drawing::Size(70, 21);
+			this->btn_restore->TabIndex = 0;
+			this->btn_restore->Text = L"Restore";
+			this->btn_restore->UseVisualStyleBackColor = true;
+			this->btn_restore->Click += gcnew System::EventHandler(this, &Form1::btn_restore_Click);
 			// 
 			// visible
 			// 
@@ -348,7 +373,7 @@ namespace CourseWork {
 			this->action_color->Size = System::Drawing::Size(69, 23);
 			this->action_color->TabIndex = 8;
 			this->action_color->UseVisualStyleBackColor = false;
-			this->action_color->Click += gcnew System::EventHandler(this, &Form1::btn_color_changed);
+			this->action_color->Click += gcnew System::EventHandler(this, &Form1::action_color_Click);
 			// 
 			// label1
 			// 
@@ -376,31 +401,22 @@ namespace CourseWork {
 			this->squareGroup->PerformLayout();
 			this->gb_actions->ResumeLayout(false);
 			this->gb_actions->PerformLayout();
+			this->groupBox1->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}										
 #pragma endregion
-	private: System::Void pictureWindow_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
-				 	 Graphics^ g = e->Graphics;
-					 //Graphics::FromImage(pictureBox1->Image); // from image??
-				//// Square^ s = gcnew Square("First Square", Color::Blue, 10, 20, 10);
-				// s->draw(g, s->getColor());
-				//  Square^ ss = gcnew Square("Second Square", Color::Red, 100, 100, 30);
-				// ss->draw(g, ss->getColor());
-				// s->move(5,10);
-				// s->draw(g, s->getColor());
-			 }
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
 				 //Image container
 
 				// ImageContainer::getContainer()->create(this->pictureBox1);
 			 }
-private: System::Void btn_color_changed(System::Object^  sender, System::EventArgs^  e) {
+private: System::Void btn_color_create(System::Object^  sender, System::EventArgs^  e) {
 			  if(colorDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 			 {
 				 tmpColor=colorDialog1->Color;
 				 btn_sq_color->BackColor=*tmpColor;
-				 action_color->BackColor=*tmpColor;
+				//action_color->BackColor=*tmpColor;
 				// ImageContainer::getContainer()->SelectedObject()->setColor(colorDialog1->Color);
 			 }
 		 }
@@ -461,6 +477,22 @@ private: System::Void select_figure_SelectedIndexChanged(System::Object^  sender
 private: System::Void visible_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 			ImageContainer::getContainer()->getCurrent()->setVisible(visible->Checked);
 			ImageContainer::getContainer()->reDraw(this->pictureWindow);
+		 }
+private: System::Void btn_restore_Click(System::Object^  sender, System::EventArgs^  e) {
+			
+			 if (ImageContainer::getContainer()->getCurrent()!=nullptr) {
+				 ImageContainer::getContainer()->getCurrent()->restoreState();
+				ImageContainer::getContainer()->reDraw(this->pictureWindow);
+			 }
+		 }
+private: System::Void action_color_Click(System::Object^  sender, System::EventArgs^  e) {
+			   if(colorDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+			 {
+				 tmpColor=colorDialog1->Color;
+				 action_color->BackColor=*tmpColor;
+				 ImageContainer::getContainer()->getCurrent()->setColor(colorDialog1->Color);			 
+			     ImageContainer::getContainer()->reDraw(this->pictureWindow);
+			 }
 		 }
 };
 

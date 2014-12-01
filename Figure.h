@@ -15,7 +15,13 @@ protected:
 	String^ name;
 	bool isSelected;
 	bool isVisible;
+
+	Color init_color;
+	Coordinates^ init_position;
 public:
+
+	virtual void restoreState()=0;
+
 	virtual void move(double dx, double dy)=0;
 	virtual void draw(Graphics^ g, Color^ color)=0;
 
@@ -26,7 +32,7 @@ public:
 	Color getColor();
 	void setColor(Color c);
 
-	Coordinates^ Position();
+	Coordinates^ getPosition();
 	void setPositon(Coordinates^ point);
 
 	void unselect();

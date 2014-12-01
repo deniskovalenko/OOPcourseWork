@@ -6,6 +6,7 @@ namespace CourseWork {
 Square::Square(String^ name, Color color, double x, double y, double side) : Figure(name, color, gcnew Coordinates(x,y)) 
 {
 	this->side=side;
+	this->init_side=side;
 }
 void Square::move(double dx, double dy){ 
 	this->position = gcnew Coordinates(this->position->getX()+dx,this->position->getY()+dy);
@@ -23,6 +24,12 @@ void Square::draw( Graphics^ g, Color^ color) {
 	g->DrawLine(gcnew Pen(*color), *leftup, *leftdown);
 	g->DrawLine(gcnew Pen(*color), *rightup, *rightdown);
 	}
+}
+void Square::restoreState() 
+{
+	this->color=init_color;
+	this->position=init_position;
+	this->side=init_side;
 }
 
 }

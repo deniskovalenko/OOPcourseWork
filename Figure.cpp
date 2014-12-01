@@ -7,6 +7,8 @@ Figure::Figure(String^ name, Color color, Coordinates^ position) {
 	this->color=color;
 	this->position=position;
 	this->isVisible=true;
+	this->init_position=position;
+	this->init_color=color;
 }
 
 Color Figure::getColor() {
@@ -25,7 +27,7 @@ void Figure::setName(String^ name) {
 	this->name=name;
 }
 
-Coordinates^ Figure::Position() {
+Coordinates^ Figure::getPosition() {
 	return this->position;
 }
 void Figure::setPositon(Coordinates^ point) {
