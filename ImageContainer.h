@@ -18,6 +18,7 @@ private:
 	List<Figure^>^ figures;
 	PictureBox^ pictureBox;
 	Figure^ current;
+	Coordinates^ imageCenter;
 public:
 	static ImageContainer^ getContainer();
 
@@ -28,7 +29,7 @@ public:
 	ImageContainer(void);
 
 	void addFigure(Figure^ figure);
-
+ 
 	List<String^>^ getFigNames();
 
 	String^ createName(String^ figureType);
@@ -44,6 +45,10 @@ public:
 	void deleteCurrent();
 
 	void deleteByName(String^ name);
+
+	Point^ toScreen(double x, double y);
+
+	void createScreen(int width, int height);
 };
 
 }

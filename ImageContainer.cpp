@@ -16,7 +16,10 @@ ImageContainer::ImageContainer(void)
 {
 	figures = gcnew List<Figure^>();
 	
-	Figure^ current = nullptr;
+	current = nullptr;
+
+	imageCenter = gcnew Coordinates(0,0);
+
 }
 
 ImageContainer^ ImageContainer::getContainer() {
@@ -33,6 +36,7 @@ void ImageContainer::reDraw(PictureBox^ pictureBox) {
 			this->pictureBox->Paint -= gcnew System::Windows::Forms::PaintEventHandler(this, &ImageContainer::pictureBox_Paint);
 		}
 		this->pictureBox = pictureBox;
+		createScreen(this->pictureBox->Width, this->pictureBox->Height);
 		this->pictureBox->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &ImageContainer::pictureBox_Paint);
 		this->pictureBox->Refresh();
 }
@@ -41,8 +45,8 @@ void ImageContainer::pictureBox_Paint(System::Object^  sender, System::Windows::
 			for each(Figure^ fig in this->figures) {
 			fig->draw(e->Graphics, fig->getColor());
 			}
-		/*if(selected!=nullptr)
-			selected->Paint(e->Graphics);*/
+		if(current!=nullptr)
+			current->draw(e->Graphics, current->getColor());
 	}
 void ImageContainer::addFigure(Figure^ figure) {
 		for each(Figure^ fig in this->figures) {
@@ -120,5 +124,16 @@ void ImageContainer::deleteByName(String^ name) {
 			}
 		}
 }
+
+void ImageContainer::createScreen(int width, int height) {
+	this->imageCenter = gcnew Coordinates(width/2, height/2);
+}
+
+Point^ ImageContainer::toScreen(double x, double y) {
+	x+=imageCenter->getX();
+	y= -y;
+	y+=imageCenter->getY();
+	return gcnew Point(x,y);
+} 
 
 }

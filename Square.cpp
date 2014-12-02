@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "Square.h"
+#include "ImageContainer.h"
 
 namespace CourseWork {
 
@@ -13,16 +14,16 @@ void Square::move(double dx, double dy){
 }
 void Square::draw( Graphics^ g, Color^ color) {
 	if (checkVisible()) {
-	PointF^ leftup = gcnew PointF(this->position->getX()-(this->side)/2, this->position->getY()+(this->side)/2 );
-	PointF^ rightup = gcnew PointF(this->position->getX()+(this->side)/2, this->position->getY()+(this->side)/2 );
 
-	PointF^ leftdown = gcnew PointF(this->position->getX()-(this->side)/2, this->position->getY()-(this->side)/2 );
-	PointF^ rightdown = gcnew PointF(this->position->getX()+(this->side)/2, this->position->getY()-(this->side)/2 );
+	Point^ screenLeftup = ImageContainer::getContainer()->toScreen(this->position->getX()-(this->side)/2, this->position->getY()+(this->side)/2);
+	Point^ screenRightup = ImageContainer::getContainer()->toScreen(this->position->getX()+(this->side)/2, this->position->getY()+(this->side)/2 );
+	Point^ screenLeftdown = ImageContainer::getContainer()->toScreen(this->position->getX()-(this->side)/2, this->position->getY()-(this->side)/2 );
+	Point^ screenRightdown = ImageContainer::getContainer()->toScreen(this->position->getX()+(this->side)/2, this->position->getY()-(this->side)/2 );
 
-	g->DrawLine(gcnew Pen(*color), *leftup, *rightup);
-	g->DrawLine(gcnew Pen(*color), *leftdown, *rightdown);
-	g->DrawLine(gcnew Pen(*color), *leftup, *leftdown);
-	g->DrawLine(gcnew Pen(*color), *rightup, *rightdown);
+	g->DrawLine(gcnew Pen(*color), *screenLeftup, *screenRightup);
+	g->DrawLine(gcnew Pen(*color), *screenLeftdown, *screenRightdown);
+	g->DrawLine(gcnew Pen(*color), *screenLeftup, *screenLeftdown);
+	g->DrawLine(gcnew Pen(*color), *screenRightup, *screenRightdown);
 	}
 }
 void Square::restoreState() 
