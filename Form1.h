@@ -1,7 +1,7 @@
 #pragma once
 #include "Square.h"
 #include "ImageContainer.h"
-
+#include "Letter.h"
 namespace CourseWork {
 
 	using namespace System;
@@ -83,6 +83,21 @@ namespace CourseWork {
 	private: System::Windows::Forms::Button^  btn_restore;
 	private: System::Windows::Forms::Button^  groupAll;
 	private: System::Windows::Forms::CheckBox^  traces;
+	private: System::Windows::Forms::GroupBox^  letter_d;
+	private: System::Windows::Forms::Button^  create_letter;
+
+	private: System::Windows::Forms::Button^  btn_lt_color;
+
+	private: System::Windows::Forms::Label^  label4;
+	private: System::Windows::Forms::TextBox^  letter_size;
+
+	private: System::Windows::Forms::Label^  label5;
+	private: System::Windows::Forms::TextBox^  letter_y;
+
+	private: System::Windows::Forms::TextBox^  letter_x;
+
+	private: System::Windows::Forms::Label^  label6;
+	private: System::Windows::Forms::Label^  label7;
 
 
 
@@ -112,6 +127,16 @@ namespace CourseWork {
 			this->square_x = (gcnew System::Windows::Forms::TextBox());
 			this->label_y1 = (gcnew System::Windows::Forms::Label());
 			this->label_x1 = (gcnew System::Windows::Forms::Label());
+			this->letter_d = (gcnew System::Windows::Forms::GroupBox());
+			this->create_letter = (gcnew System::Windows::Forms::Button());
+			this->btn_lt_color = (gcnew System::Windows::Forms::Button());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->letter_size = (gcnew System::Windows::Forms::TextBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->letter_y = (gcnew System::Windows::Forms::TextBox());
+			this->letter_x = (gcnew System::Windows::Forms::TextBox());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
 			this->gb_actions = (gcnew System::Windows::Forms::GroupBox());
 			this->traces = (gcnew System::Windows::Forms::CheckBox());
@@ -130,6 +155,7 @@ namespace CourseWork {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureWindow))->BeginInit();
 			this->squareGroup->SuspendLayout();
+			this->letter_d->SuspendLayout();
 			this->gb_actions->SuspendLayout();
 			this->groupBox1->SuspendLayout();
 			this->SuspendLayout();
@@ -147,7 +173,7 @@ namespace CourseWork {
 			// 
 			this->FigureType->AccessibleDescription = L"";
 			this->FigureType->FormattingEnabled = true;
-			this->FigureType->Items->AddRange(gcnew cli::array< System::Object^  >(1) {L"Square"});
+			this->FigureType->Items->AddRange(gcnew cli::array< System::Object^  >(2) {L"Square", L"Letter_D"});
 			this->FigureType->Location = System::Drawing::Point(12, 47);
 			this->FigureType->Name = L"FigureType";
 			this->FigureType->Size = System::Drawing::Size(165, 21);
@@ -252,6 +278,105 @@ namespace CourseWork {
 			this->label_x1->Size = System::Drawing::Size(51, 13);
 			this->label_x1->TabIndex = 0;
 			this->label_x1->Text = L"Center_X";
+			// 
+			// letter_d
+			// 
+			this->letter_d->Controls->Add(this->create_letter);
+			this->letter_d->Controls->Add(this->btn_lt_color);
+			this->letter_d->Controls->Add(this->label4);
+			this->letter_d->Controls->Add(this->letter_size);
+			this->letter_d->Controls->Add(this->label5);
+			this->letter_d->Controls->Add(this->letter_y);
+			this->letter_d->Controls->Add(this->letter_x);
+			this->letter_d->Controls->Add(this->label6);
+			this->letter_d->Controls->Add(this->label7);
+			this->letter_d->Location = System::Drawing::Point(12, 87);
+			this->letter_d->Name = L"letter_d";
+			this->letter_d->Size = System::Drawing::Size(165, 148);
+			this->letter_d->TabIndex = 6;
+			this->letter_d->TabStop = false;
+			this->letter_d->Text = L"Ä - letter";
+			this->letter_d->Visible = false;
+			// 
+			// create_letter
+			// 
+			this->create_letter->Location = System::Drawing::Point(35, 121);
+			this->create_letter->Name = L"create_letter";
+			this->create_letter->Size = System::Drawing::Size(101, 21);
+			this->create_letter->TabIndex = 17;
+			this->create_letter->Text = L"Create";
+			this->create_letter->UseVisualStyleBackColor = true;
+			this->create_letter->Click += gcnew System::EventHandler(this, &Form1::create_letter_Click);
+			// 
+			// btn_lt_color
+			// 
+			this->btn_lt_color->BackColor = System::Drawing::SystemColors::MenuHighlight;
+			this->btn_lt_color->Location = System::Drawing::Point(89, 92);
+			this->btn_lt_color->Name = L"btn_lt_color";
+			this->btn_lt_color->Size = System::Drawing::Size(56, 23);
+			this->btn_lt_color->TabIndex = 16;
+			this->btn_lt_color->UseVisualStyleBackColor = false;
+			this->btn_lt_color->Click += gcnew System::EventHandler(this, &Form1::btn_color_create);
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Location = System::Drawing::Point(23, 97);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(31, 13);
+			this->label4->TabIndex = 15;
+			this->label4->Text = L"Color";
+			// 
+			// letter_size
+			// 
+			this->letter_size->Location = System::Drawing::Point(89, 66);
+			this->letter_size->Name = L"letter_size";
+			this->letter_size->Size = System::Drawing::Size(56, 20);
+			this->letter_size->TabIndex = 14;
+			this->letter_size->Text = L"10";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(23, 69);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(27, 13);
+			this->label5->TabIndex = 13;
+			this->label5->Text = L"Size";
+			// 
+			// letter_y
+			// 
+			this->letter_y->Location = System::Drawing::Point(89, 40);
+			this->letter_y->Name = L"letter_y";
+			this->letter_y->Size = System::Drawing::Size(56, 20);
+			this->letter_y->TabIndex = 12;
+			this->letter_y->Text = L"0";
+			// 
+			// letter_x
+			// 
+			this->letter_x->Location = System::Drawing::Point(89, 14);
+			this->letter_x->Name = L"letter_x";
+			this->letter_x->Size = System::Drawing::Size(56, 20);
+			this->letter_x->TabIndex = 11;
+			this->letter_x->Text = L"0";
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(20, 43);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(51, 13);
+			this->label6->TabIndex = 10;
+			this->label6->Text = L"Center_Y";
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Location = System::Drawing::Point(20, 17);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(51, 13);
+			this->label7->TabIndex = 9;
+			this->label7->Text = L"Center_X";
 			// 
 			// gb_actions
 			// 
@@ -416,6 +541,7 @@ namespace CourseWork {
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(832, 418);
+			this->Controls->Add(this->letter_d);
 			this->Controls->Add(this->gb_actions);
 			this->Controls->Add(this->squareGroup);
 			this->Controls->Add(this->FigureType);
@@ -426,6 +552,8 @@ namespace CourseWork {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureWindow))->EndInit();
 			this->squareGroup->ResumeLayout(false);
 			this->squareGroup->PerformLayout();
+			this->letter_d->ResumeLayout(false);
+			this->letter_d->PerformLayout();
 			this->gb_actions->ResumeLayout(false);
 			this->gb_actions->PerformLayout();
 			this->groupBox1->ResumeLayout(false);
@@ -438,15 +566,6 @@ namespace CourseWork {
 
 			 ImageContainer::getContainer()->reDraw(this->pictureWindow);
 			 }
-private: System::Void btn_color_create(System::Object^  sender, System::EventArgs^  e) {
-			  if(colorDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-			 {
-				 tmpColor=colorDialog1->Color;
-				 btn_sq_color->BackColor=*tmpColor;
-				//action_color->BackColor=*tmpColor;
-				// ImageContainer::getContainer()->SelectedObject()->setColor(colorDialog1->Color);
-			 }
-		 }
 
 	private: System::Void create_square_Click(System::Object^  sender, System::EventArgs^  e) {
 			 double x = Convert::ToDouble(square_x->Text);
@@ -459,6 +578,16 @@ private: System::Void btn_color_create(System::Object^  sender, System::EventArg
 			 gb_actions->Visible=true;
 		 }
 
+	private: System::Void create_letter_Click(System::Object^  sender, System::EventArgs^  e) {
+			 double x = Convert::ToDouble(letter_x->Text);
+			 double y = Convert::ToDouble(letter_y->Text);
+			 double size = Convert::ToDouble(letter_size->Text);
+			 String^ name = ImageContainer::getContainer()->createName("letter");
+			 ImageContainer::getContainer()->addFigure(gcnew Letter(name, *tmpColor, x, y, size));
+			 ImageContainer::getContainer()->reDraw(this->pictureWindow);
+			 ComboboxUpdate();
+			 gb_actions->Visible=true;
+		 }
 
 	private: void ComboboxUpdate()
 			{
@@ -468,11 +597,19 @@ private: System::Void btn_color_create(System::Object^  sender, System::EventArg
 				{
 					select_figure->SelectedIndex = select_figure->Items->Count-1;
 					ImageContainer::getContainer()->selectByName(select_figure->SelectedItem->ToString());
-				} else {select_figure->Text=""; }
+				} else {select_figure->Text="";  gb_actions->Visible=false; }
 			}
+
 private: System::Void FigureType_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
-			 if (FigureType->SelectedItem->ToString()=="Square") 
-				{squareGroup->Visible=true;}
+			 if (FigureType->SelectedItem->ToString()=="Square") {
+					squareGroup->Visible=true;
+					letter_d->Visible=false; 
+			 } else if (FigureType->SelectedItem->ToString()=="Letter_D") {
+					squareGroup->Visible=false;
+					letter_d->Visible=true;
+			 } else { squareGroup->Visible=false;
+					  letter_d->Visible=false; 
+			 }
 		 }
 
 private: System::Void remove_figure_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -480,6 +617,30 @@ private: System::Void remove_figure_Click(System::Object^  sender, System::Event
 			 ImageContainer::getContainer()->reDraw(this->pictureWindow);
 			 ComboboxUpdate();
 		 }
+private: System::Void btn_restore_Click(System::Object^  sender, System::EventArgs^  e) {
+			
+			 if (ImageContainer::getContainer()->getCurrent()!=nullptr) {
+				 ImageContainer::getContainer()->getCurrent()->restoreState();
+				ImageContainer::getContainer()->reDraw(this->pictureWindow);
+			 }
+		 }
+
+private: System::Void btn_color_create(System::Object^  sender, System::EventArgs^  e) {
+	if(colorDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	{
+		tmpColor=colorDialog1->Color;
+		btn_sq_color->BackColor=*tmpColor;
+	}
+}
+private: System::Void action_color_Click(System::Object^  sender, System::EventArgs^  e) {
+	if(colorDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	{
+		tmpColor=colorDialog1->Color;
+		action_color->BackColor=*tmpColor;
+		ImageContainer::getContainer()->getCurrent()->setColor(colorDialog1->Color);			 
+		ImageContainer::getContainer()->reDraw(this->pictureWindow);
+	}
+}
 
 private: System::Void change_btn_Click(System::Object^  sender, System::EventArgs^  e) {
 			 double deltax = Convert::ToDouble(dx->Text);
@@ -503,37 +664,25 @@ private: System::Void select_figure_SelectedIndexChanged(System::Object^  sender
 				ImageContainer::getContainer()->unselect();
 			 }
 		 }
+
+
+
+private: System::Void groupAll_Click(System::Object^  sender, System::EventArgs^  e) {
+				ImageContainer::getContainer()->groupFigures();
+				ImageContainer::getContainer()->reDraw(this->pictureWindow);
+				ComboboxUpdate();
+		 }
 private: System::Void visible_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 		 if (ImageContainer::getContainer()->getCurrent()!=nullptr) {
 		    ImageContainer::getContainer()->getCurrent()->setVisible(visible->Checked);
 			ImageContainer::getContainer()->reDraw(this->pictureWindow);
 			 }
 		 }
-private: System::Void btn_restore_Click(System::Object^  sender, System::EventArgs^  e) {
-			
-			 if (ImageContainer::getContainer()->getCurrent()!=nullptr) {
-				 ImageContainer::getContainer()->getCurrent()->restoreState();
-				ImageContainer::getContainer()->reDraw(this->pictureWindow);
-			 }
-		 }
-private: System::Void action_color_Click(System::Object^  sender, System::EventArgs^  e) {
-			   if(colorDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
-			 {
-				 tmpColor=colorDialog1->Color;
-				 action_color->BackColor=*tmpColor;
-				 ImageContainer::getContainer()->getCurrent()->setColor(colorDialog1->Color);			 
-			     ImageContainer::getContainer()->reDraw(this->pictureWindow);
-			 }
-		 }
-private: System::Void groupAll_Click(System::Object^  sender, System::EventArgs^  e) {
-				ImageContainer::getContainer()->groupFigures();
-				ImageContainer::getContainer()->reDraw(this->pictureWindow);
-				ComboboxUpdate();
-		 }
 private: System::Void traces_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
 				ImageContainer::getContainer()->setDrawTraces(traces->Checked);
 				ImageContainer::getContainer()->reDraw(this->pictureWindow);
 		 }
+
 };
 
 }
