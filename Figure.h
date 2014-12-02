@@ -24,6 +24,7 @@ public:
 
 	virtual void move(double dx, double dy)=0;
 	virtual void draw(Graphics^ g, Color^ color)=0;
+	virtual Figure^ copy()=0;
 
 	Figure(String^ name, Color color, Coordinates^ position);
 	void setName(String^ newName);

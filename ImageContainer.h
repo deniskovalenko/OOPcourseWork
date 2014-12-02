@@ -49,6 +49,8 @@ public:
 	Point^ toScreen(double x, double y);
 
 	void createScreen(int width, int height);
+
+	void groupFigures();
 };
 
 }

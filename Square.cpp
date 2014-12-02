@@ -9,6 +9,11 @@ Square::Square(String^ name, Color color, double x, double y, double side) : Fig
 	this->side=side;
 	this->init_side=side;
 }
+
+Figure^ Square::copy() {
+	return gcnew Square(this->name, this->color, this->position->getX(), this->position->getY(), this->side);
+}
+
 void Square::move(double dx, double dy){ 
 	this->position = gcnew Coordinates(this->position->getX()+dx,this->position->getY()+dy);
 }

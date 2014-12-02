@@ -81,6 +81,7 @@ namespace CourseWork {
 	private: System::Windows::Forms::CheckBox^  visible;
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 	private: System::Windows::Forms::Button^  btn_restore;
+	private: System::Windows::Forms::Button^  groupAll;
 
 
 
@@ -124,6 +125,7 @@ namespace CourseWork {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->action_color = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->groupAll = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureWindow))->BeginInit();
 			this->squareGroup->SuspendLayout();
 			this->gb_actions->SuspendLayout();
@@ -272,6 +274,7 @@ namespace CourseWork {
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->groupAll);
 			this->groupBox1->Controls->Add(this->btn_restore);
 			this->groupBox1->Location = System::Drawing::Point(6, 223);
 			this->groupBox1->Name = L"groupBox1";
@@ -384,6 +387,16 @@ namespace CourseWork {
 			this->label1->TabIndex = 7;
 			this->label1->Text = L"Color";
 			// 
+			// groupAll
+			// 
+			this->groupAll->Location = System::Drawing::Point(77, 10);
+			this->groupAll->Name = L"groupAll";
+			this->groupAll->Size = System::Drawing::Size(71, 21);
+			this->groupAll->TabIndex = 1;
+			this->groupAll->Text = L"Group";
+			this->groupAll->UseVisualStyleBackColor = true;
+			this->groupAll->Click += gcnew System::EventHandler(this, &Form1::groupAll_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -468,6 +481,8 @@ private: System::Void select_figure_SelectedIndexChanged(System::Object^  sender
 			 if(select_figure->SelectedIndex!=-1)
 			 { 
 				 ImageContainer::getContainer()->selectByName(select_figure->SelectedItem->ToString());
+				 action_color->BackColor=ImageContainer::getContainer()->getCurrent()->getColor();
+				 tmpColor=action_color->BackColor;
 			 }
 			 else
 			 {
@@ -493,6 +508,11 @@ private: System::Void action_color_Click(System::Object^  sender, System::EventA
 				 ImageContainer::getContainer()->getCurrent()->setColor(colorDialog1->Color);			 
 			     ImageContainer::getContainer()->reDraw(this->pictureWindow);
 			 }
+		 }
+private: System::Void groupAll_Click(System::Object^  sender, System::EventArgs^  e) {
+				ImageContainer::getContainer()->groupFigures();
+				ImageContainer::getContainer()->reDraw(this->pictureWindow);
+				ComboboxUpdate();
 		 }
 };
 

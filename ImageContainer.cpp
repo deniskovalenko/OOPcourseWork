@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "ImageContainer.h"
 #include "Square.h"
+#include "FigureGroup.h"
 
 	using namespace System;
 	using namespace System::ComponentModel;
@@ -135,5 +136,21 @@ Point^ ImageContainer::toScreen(double x, double y) {
 	y+=imageCenter->getY();
 	return gcnew Point(x,y);
 } 
+
+void ImageContainer::groupFigures() {
+		if(figures->Count!=0)
+		{
+			String^ name = "figGroup";
+			int i = 1;
+			while(getFigureByName(name+i.ToString())!=nullptr) {
+				i++;
+			}
+			FigureGroup^ curGroup = gcnew FigureGroup(name+i.ToString());
+			for each(Figure^ figure in figures) {
+				curGroup->addFigure(figure); 
+			}
+			addFigure(curGroup);
+		}
+}
 
 }

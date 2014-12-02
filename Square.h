@@ -11,6 +11,7 @@ public:
 	Square(String^ name, Color color, double x, double y, double side);
 	virtual void move(double dx, double dy) override;
 	virtual void draw(Graphics^ g, Color^ color) override;
+	virtual Figure^ copy() override;
 };
 
 }
