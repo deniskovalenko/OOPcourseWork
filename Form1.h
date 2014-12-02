@@ -546,9 +546,13 @@ namespace CourseWork {
 			this->Controls->Add(this->squareGroup);
 			this->Controls->Add(this->FigureType);
 			this->Controls->Add(this->pictureWindow);
+			this->KeyPreview = true;
 			this->Name = L"Form1";
 			this->Text = L"C";
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyDown);
+			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Form1::Form1_KeyPress);
+			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyUp);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureWindow))->EndInit();
 			this->squareGroup->ResumeLayout(false);
 			this->squareGroup->PerformLayout();
@@ -682,7 +686,53 @@ private: System::Void traces_CheckedChanged(System::Object^  sender, System::Eve
 				ImageContainer::getContainer()->setDrawTraces(traces->Checked);
 				ImageContainer::getContainer()->reDraw(this->pictureWindow);
 		 }
+private: System::Void Form1_KeyUp(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) 
+		 {
+			 if(ImageContainer::getContainer()->getCurrent() == nullptr) return;
+			 if(e->KeyCode == Keys::Up)
+			 {
+				 e->Handled = true;
+				ImageContainer::getContainer()->getCurrent()->move(0,1);	
+			 }
+			 else if(e->KeyCode == Keys::Down)
+			 {
+				 e->Handled = true;
+				 ImageContainer::getContainer()->getCurrent()->move(0,-1);
+			 }
+			 else if(e->KeyCode == Keys::Left)
+			 {
+				 e->Handled = true;
+				 ImageContainer::getContainer()->getCurrent()->move(-1,0);
+			 }
+			 else if(e->KeyCode == Keys::Right)
+			 {
+				 e->Handled = true;
+				 ImageContainer::getContainer()->getCurrent()->move(1,0);
+			 }
+			 ImageContainer::getContainer()->reDraw(this->pictureWindow);
+		 }
 
+private: System::Void Form1_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
+			 if(e->KeyCode == Keys::Up)
+			 {
+				 e->Handled = true;
+		     }
+			 else if(e->KeyCode == Keys::Down)
+			 {
+				 e->Handled = true;
+		     }
+			 else if(e->KeyCode == Keys::Left)
+			 {
+				 e->Handled = true;
+		     }
+			 else if(e->KeyCode == Keys::Right)
+			 {
+				 e->Handled = true;
+			 }
+		 }
+
+private: System::Void Form1_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+		 }
 };
 
 }
