@@ -15,13 +15,13 @@ protected:
 	String^ name;
 	bool isSelected;
 	bool isVisible;
-
+	Bitmap^ canvas;
 	Color init_color;
 	Coordinates^ init_position;
 public:
 
 	virtual void restoreState()=0;
-
+	void draw(Graphics^ g);
 	virtual void move(double dx, double dy)=0;
 	virtual void draw(Graphics^ g, Color^ color)=0;
 	virtual Figure^ copy()=0;

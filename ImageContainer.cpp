@@ -44,10 +44,10 @@ void ImageContainer::reDraw(PictureBox^ pictureBox) {
 
 void ImageContainer::pictureBox_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {
 			for each(Figure^ fig in this->figures) {
-			fig->draw(e->Graphics, fig->getColor());
+			fig->draw(e->Graphics);
 			}
 		if(current!=nullptr)
-			current->draw(e->Graphics, current->getColor());
+			current->draw(e->Graphics);
 	}
 void ImageContainer::addFigure(Figure^ figure) {
 		for each(Figure^ fig in this->figures) {
@@ -152,5 +152,19 @@ void ImageContainer::groupFigures() {
 			addFigure(curGroup);
 		}
 }
+
+	int ImageContainer::pbWidth() {
+		return this->pictureBox->Width; 
+	}
+	int ImageContainer::pbHeight() {
+		return this->pictureBox->Height;
+	}
+
+	bool ImageContainer::getDrawTraces() {
+		return traces;
+	}
+	void ImageContainer::setDrawTraces(bool traces) {
+		this->traces = traces; 
+	}
 
 }

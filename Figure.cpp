@@ -1,5 +1,7 @@
 #include "StdAfx.h"
 #include "Figure.h"
+#include "ImageContainer.h"
+
 namespace CourseWork {
 
 Figure::Figure(String^ name, Color color, Coordinates^ position) {
@@ -9,6 +11,7 @@ Figure::Figure(String^ name, Color color, Coordinates^ position) {
 	this->isVisible=true;
 	this->init_position=position;
 	this->init_color=color;
+	this->canvas = gcnew Bitmap(ImageContainer::getContainer()->pbWidth(), ImageContainer::getContainer()->pbHeight());
 }
 
 Color Figure::getColor() {
@@ -53,5 +56,22 @@ void Figure::setVisible(bool isVisible)
 {
 	this->isVisible = isVisible;
 }
+
+void Figure::draw( Graphics^ g )
+	{
+		if(isVisible)
+		{
+			if(ImageContainer::getContainer()->getDrawTraces())
+			{
+				Graphics^ g_tmp = Graphics::FromImage((Image^)canvas);
+				draw(g_tmp,this->color);
+				g->DrawImage((Image^)canvas,0,0);
+			}
+			else
+			{
+				draw(g,this->color);
+			}
+		}
+	}
 
 }

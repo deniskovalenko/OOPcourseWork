@@ -82,6 +82,7 @@ namespace CourseWork {
 	private: System::Windows::Forms::GroupBox^  groupBox1;
 	private: System::Windows::Forms::Button^  btn_restore;
 	private: System::Windows::Forms::Button^  groupAll;
+	private: System::Windows::Forms::CheckBox^  traces;
 
 
 
@@ -113,7 +114,9 @@ namespace CourseWork {
 			this->label_x1 = (gcnew System::Windows::Forms::Label());
 			this->colorDialog1 = (gcnew System::Windows::Forms::ColorDialog());
 			this->gb_actions = (gcnew System::Windows::Forms::GroupBox());
+			this->traces = (gcnew System::Windows::Forms::CheckBox());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->groupAll = (gcnew System::Windows::Forms::Button());
 			this->btn_restore = (gcnew System::Windows::Forms::Button());
 			this->visible = (gcnew System::Windows::Forms::CheckBox());
 			this->remove_figure = (gcnew System::Windows::Forms::Button());
@@ -125,7 +128,6 @@ namespace CourseWork {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->action_color = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->groupAll = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureWindow))->BeginInit();
 			this->squareGroup->SuspendLayout();
 			this->gb_actions->SuspendLayout();
@@ -253,6 +255,7 @@ namespace CourseWork {
 			// 
 			// gb_actions
 			// 
+			this->gb_actions->Controls->Add(this->traces);
 			this->gb_actions->Controls->Add(this->groupBox1);
 			this->gb_actions->Controls->Add(this->visible);
 			this->gb_actions->Controls->Add(this->remove_figure);
@@ -272,6 +275,17 @@ namespace CourseWork {
 			this->gb_actions->Text = L"Actions";
 			this->gb_actions->Visible = false;
 			// 
+			// traces
+			// 
+			this->traces->AutoSize = true;
+			this->traces->Location = System::Drawing::Point(79, 57);
+			this->traces->Name = L"traces";
+			this->traces->Size = System::Drawing::Size(81, 17);
+			this->traces->TabIndex = 18;
+			this->traces->Text = L"draw traces";
+			this->traces->UseVisualStyleBackColor = true;
+			this->traces->CheckedChanged += gcnew System::EventHandler(this, &Form1::traces_CheckedChanged);
+			// 
 			// groupBox1
 			// 
 			this->groupBox1->Controls->Add(this->groupAll);
@@ -281,6 +295,16 @@ namespace CourseWork {
 			this->groupBox1->Size = System::Drawing::Size(154, 64);
 			this->groupBox1->TabIndex = 17;
 			this->groupBox1->TabStop = false;
+			// 
+			// groupAll
+			// 
+			this->groupAll->Location = System::Drawing::Point(77, 10);
+			this->groupAll->Name = L"groupAll";
+			this->groupAll->Size = System::Drawing::Size(71, 21);
+			this->groupAll->TabIndex = 1;
+			this->groupAll->Text = L"Group";
+			this->groupAll->UseVisualStyleBackColor = true;
+			this->groupAll->Click += gcnew System::EventHandler(this, &Form1::groupAll_Click);
 			// 
 			// btn_restore
 			// 
@@ -307,7 +331,7 @@ namespace CourseWork {
 			// 
 			// remove_figure
 			// 
-			this->remove_figure->Location = System::Drawing::Point(31, 194);
+			this->remove_figure->Location = System::Drawing::Point(42, 194);
 			this->remove_figure->Name = L"remove_figure";
 			this->remove_figure->Size = System::Drawing::Size(88, 23);
 			this->remove_figure->TabIndex = 15;
@@ -317,7 +341,7 @@ namespace CourseWork {
 			// 
 			// change_btn
 			// 
-			this->change_btn->Location = System::Drawing::Point(31, 166);
+			this->change_btn->Location = System::Drawing::Point(42, 165);
 			this->change_btn->Name = L"change_btn";
 			this->change_btn->Size = System::Drawing::Size(88, 23);
 			this->change_btn->TabIndex = 14;
@@ -387,16 +411,6 @@ namespace CourseWork {
 			this->label1->TabIndex = 7;
 			this->label1->Text = L"Color";
 			// 
-			// groupAll
-			// 
-			this->groupAll->Location = System::Drawing::Point(77, 10);
-			this->groupAll->Name = L"groupAll";
-			this->groupAll->Size = System::Drawing::Size(71, 21);
-			this->groupAll->TabIndex = 1;
-			this->groupAll->Text = L"Group";
-			this->groupAll->UseVisualStyleBackColor = true;
-			this->groupAll->Click += gcnew System::EventHandler(this, &Form1::groupAll_Click);
-			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -422,7 +436,7 @@ namespace CourseWork {
 	private: System::Void Form1_Load(System::Object^  sender, System::EventArgs^  e) {
 				 //Image container
 
-				// ImageContainer::getContainer()->create(this->pictureBox1);
+			 ImageContainer::getContainer()->reDraw(this->pictureWindow);
 			 }
 private: System::Void btn_color_create(System::Object^  sender, System::EventArgs^  e) {
 			  if(colorDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
@@ -490,8 +504,10 @@ private: System::Void select_figure_SelectedIndexChanged(System::Object^  sender
 			 }
 		 }
 private: System::Void visible_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
-			ImageContainer::getContainer()->getCurrent()->setVisible(visible->Checked);
+		 if (ImageContainer::getContainer()->getCurrent()!=nullptr) {
+		    ImageContainer::getContainer()->getCurrent()->setVisible(visible->Checked);
 			ImageContainer::getContainer()->reDraw(this->pictureWindow);
+			 }
 		 }
 private: System::Void btn_restore_Click(System::Object^  sender, System::EventArgs^  e) {
 			
@@ -513,6 +529,10 @@ private: System::Void groupAll_Click(System::Object^  sender, System::EventArgs^
 				ImageContainer::getContainer()->groupFigures();
 				ImageContainer::getContainer()->reDraw(this->pictureWindow);
 				ComboboxUpdate();
+		 }
+private: System::Void traces_CheckedChanged(System::Object^  sender, System::EventArgs^  e) {
+				ImageContainer::getContainer()->setDrawTraces(traces->Checked);
+				ImageContainer::getContainer()->reDraw(this->pictureWindow);
 		 }
 };
 

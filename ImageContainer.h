@@ -19,6 +19,7 @@ private:
 	PictureBox^ pictureBox;
 	Figure^ current;
 	Coordinates^ imageCenter;
+	bool traces;
 public:
 	static ImageContainer^ getContainer();
 
@@ -29,6 +30,9 @@ public:
 	ImageContainer(void);
 
 	void addFigure(Figure^ figure);
+
+	int pbWidth();
+	int pbHeight();
  
 	List<String^>^ getFigNames();
 
@@ -51,6 +55,10 @@ public:
 	void createScreen(int width, int height);
 
 	void groupFigures();
+
+	bool getDrawTraces();
+
+	void setDrawTraces(bool traces);
 };
 
 }
