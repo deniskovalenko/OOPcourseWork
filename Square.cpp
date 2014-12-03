@@ -1,7 +1,8 @@
 #include "StdAfx.h"
 #include "Square.h"
 #include "ImageContainer.h"
-
+#include "math.h"
+using namespace System;
 namespace CourseWork {
 
 Square::Square(String^ name, Color color, double x, double y, double side) : Figure(name, color, gcnew Coordinates(x,y)) 
@@ -38,8 +39,26 @@ void Square::restoreState()
 	this->side=init_side;
 }
 
-void Square::deform() {}
+	bool Square::inComfortZone(Figure^ figure) {
+		if (this==figure) return false;
+		return (this->distTo(figure) < this->getComfortZone()+figure->getComfortZone());
+	}
+	double Square::getComfortZone() {
+		return 1.4*side/2;
+	}
 
-void Square::unDeform() {}
+void Square::deform() {
+	if (!isDeformed) {
+		this->side=(4.0/3.0)*side;
+		isDeformed=true;
+	}
+}
+
+void Square::unDeform() {
+	if (isDeformed) {
+	this->side=(3.0/4.0)*side;
+	isDeformed=false; 
+	}
+}
 
 }

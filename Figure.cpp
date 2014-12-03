@@ -14,6 +14,7 @@ Figure::Figure(String^ name, Color color, Coordinates^ position) {
 	this->canvas = gcnew Bitmap(ImageContainer::getContainer()->pbWidth(), ImageContainer::getContainer()->pbHeight());
 	this->isDeformed = false;
 	this->color_forced = false;
+	this->saved_color=color;
 }
 
 Color Figure::getColor() {
@@ -22,6 +23,7 @@ Color Figure::getColor() {
 
 void Figure::setColor(Color cl) {
 	this->color=cl;
+	this->saved_color=cl;
 }
 
 String^ Figure::getName() {
@@ -35,7 +37,7 @@ void Figure::setName(String^ name) {
 Coordinates^ Figure::getPosition() {
 	return this->position;
 }
-void Figure::setPositon(Coordinates^ point) {
+void Figure::setPosition(Coordinates^ point) {
 	this->position=point;
 }
 
@@ -83,11 +85,14 @@ double Figure::distTo(Figure^ figure) {
 void Figure::forceColor(Color^ color) {
 	if (!color_forced) {
 		saved_color=this->color; 
+		this->color_forced=true;
 	}
 		this->color=*color;		 
 }
 
 void Figure::restoreColor() {
 	this->color=saved_color;
+	color_forced=false;
 }
+
 }

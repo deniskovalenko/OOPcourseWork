@@ -4,9 +4,12 @@
 #include "IMovable.h"
 
 using namespace System;
+using namespace System::IO;
+using namespace System::Runtime::Serialization::Formatters::Binary;
 using namespace System::Drawing;
 
 namespace CourseWork {
+[Serializable]
 ref class  Figure abstract  : public IDrawable, public IMovable
 {
 protected:
@@ -28,8 +31,8 @@ public:
 	virtual void move(double dx, double dy)=0;
 	virtual void draw(Graphics^ g, Color^ color)=0;
 	virtual Figure^ copy()=0;
-	void forceColor(Color^ color);
-	void restoreColor();
+	virtual void forceColor(Color^ color);
+	virtual void restoreColor();
 	virtual void deform()=0;
 	virtual void unDeform()=0;
 	
@@ -42,7 +45,7 @@ public:
 	void setColor(Color c);
 
 	Coordinates^ getPosition();
-	void setPositon(Coordinates^ point);
+	void setPosition(Coordinates^ point);
 
 	void unselect();
 	void select();
@@ -51,6 +54,11 @@ public:
 	void setVisible(bool isVisible);
 
 	double distTo(Figure^ figure);
+	
+	virtual bool inComfortZone(Figure^ figure)=0; 
+
+	virtual double getComfortZone()=0;
+
 };
 
 }

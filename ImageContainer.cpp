@@ -53,16 +53,28 @@ void ImageContainer::reDraw(PictureBox^ pictureBox) {
 
 void ImageContainer::handleIntersections() {
 	for each (Figure^ figure in figures) {
-		if (inComfortZone(current, figure)) {
-			figure->deform();
-			figure->forceColor(current->getColor()); //save to saved if not forsed yet, else only change, not save
-		} else {
-			figure->unDeform();
-			figure->restoreColor();
+		if (figure!=current) {
+			if (figure->inComfortZone(current)) {
+				figure->deform();
+				figure->forceColor(current->getColor()); //save to saved if not forsed yet, else only change, not save
+			} else {
+				figure->unDeform();
+				figure->restoreColor();
+			} 
+		} else 	{
+			for each (Figure^ figure in figures) {
+				if(figure!=current) {
+					if (!current->inComfortZone(figure)) {
+						current->unDeform();
+						current->restoreColor();
+				}
+		}	
 		}
 	}
-}
+	}
 
+}
+List<Figure^>^ ImageContainer::getAllFigures() {return figures;}
 void ImageContainer::timer_Tick( System::Object^ sender, System::EventArgs^ e ) {
 	if (auto_move) {
 		current->move(speed,speed*speed);
@@ -174,6 +186,8 @@ Point^ ImageContainer::toScreen(double x, double y) {
 	return gcnew Point(x,y);
 } 
 
+void ImageContainer::setAllFigures( List<Figure^>^ list) {this->figures=list;}
+
 void ImageContainer::groupFigures() {
 		if(figures->Count!=0)
 		{
@@ -202,10 +216,6 @@ void ImageContainer::groupFigures() {
 	}
 	void ImageContainer::setDrawTraces(bool traces) {
 		this->traces = traces; 
-	}
-
-	bool ImageContainer::inComfortZone(Figure^ figure1, Figure^ figure2) {
-		return (figure1->distTo(figure2) < figure1->getComfortZone()+figure2->getComfortZone());
 	}
 
 

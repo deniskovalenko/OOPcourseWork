@@ -42,8 +42,23 @@ void Letter::restoreState()
 	this->position=init_position;
 	this->size=init_size;
 }
-void Letter::deform() {}
+void Letter::deform() {
+	if (!isDeformed)
+		{this->size=(4.0/3.0)*size;
+		isDeformed=true;}
+}
 
-void Letter::unDeform() {}
+void Letter::unDeform() {
+	if (isDeformed) {
+	this->size=(3.0/4.0)*size;
+	isDeformed=false;}
+}
+	bool Letter::inComfortZone(Figure^ figure) {
+		if (this==figure) return false;
+		return (this->distTo(figure) < this->getComfortZone()+figure->getComfortZone());
+	}
 
+	double Letter::getComfortZone() {
+		return size/2;
+	}
 }

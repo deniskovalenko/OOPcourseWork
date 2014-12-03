@@ -1,7 +1,9 @@
 #pragma once
-
+using namespace System;
+using namespace System::IO;
+using namespace System::Runtime::Serialization::Formatters::Binary;
 namespace CourseWork {
-
+[Serializable]
 ref class Coordinates
 {
 private:

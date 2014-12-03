@@ -10,6 +10,13 @@ namespace CourseWork {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System;
+using namespace System::IO;
+using namespace System::Collections;
+using namespace System::Runtime::Serialization::Formatters::Binary;
+using namespace System::Runtime::Serialization;
+using namespace System::IO;
+using namespace System::Runtime::Serialization::Formatters::Binary;
 
 	/// <summary>
 	/// Summary for Form1
@@ -99,6 +106,9 @@ namespace CourseWork {
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Button^  auto_move;
+	private: System::Windows::Forms::Button^  button1;
+	private: System::Windows::Forms::Button^  button2;
+	private: System::Windows::Forms::Button^  button3;
 
 
 
@@ -142,6 +152,7 @@ namespace CourseWork {
 			this->gb_actions = (gcnew System::Windows::Forms::GroupBox());
 			this->traces = (gcnew System::Windows::Forms::CheckBox());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->auto_move = (gcnew System::Windows::Forms::Button());
 			this->groupAll = (gcnew System::Windows::Forms::Button());
 			this->btn_restore = (gcnew System::Windows::Forms::Button());
 			this->visible = (gcnew System::Windows::Forms::CheckBox());
@@ -154,7 +165,9 @@ namespace CourseWork {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->action_color = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->auto_move = (gcnew System::Windows::Forms::Button());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->button2 = (gcnew System::Windows::Forms::Button());
+			this->button3 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureWindow))->BeginInit();
 			this->squareGroup->SuspendLayout();
 			this->letter_d->SuspendLayout();
@@ -424,6 +437,16 @@ namespace CourseWork {
 			this->groupBox1->TabIndex = 17;
 			this->groupBox1->TabStop = false;
 			// 
+			// auto_move
+			// 
+			this->auto_move->Location = System::Drawing::Point(7, 35);
+			this->auto_move->Name = L"auto_move";
+			this->auto_move->Size = System::Drawing::Size(69, 23);
+			this->auto_move->TabIndex = 2;
+			this->auto_move->Text = L"auto_move";
+			this->auto_move->UseVisualStyleBackColor = true;
+			this->auto_move->Click += gcnew System::EventHandler(this, &Form1::auto_move_Click);
+			// 
 			// groupAll
 			// 
 			this->groupAll->Location = System::Drawing::Point(77, 10);
@@ -539,21 +562,44 @@ namespace CourseWork {
 			this->label1->TabIndex = 7;
 			this->label1->Text = L"Color";
 			// 
-			// auto_move
+			// button1
 			// 
-			this->auto_move->Location = System::Drawing::Point(7, 35);
-			this->auto_move->Name = L"auto_move";
-			this->auto_move->Size = System::Drawing::Size(69, 23);
-			this->auto_move->TabIndex = 2;
-			this->auto_move->Text = L"auto_move";
-			this->auto_move->UseVisualStyleBackColor = true;
-			this->auto_move->Click += gcnew System::EventHandler(this, &Form1::auto_move_Click);
+			this->button1->Location = System::Drawing::Point(348, 13);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->TabIndex = 7;
+			this->button1->Text = L"button1";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
+			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(466, 12);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 23);
+			this->button2->TabIndex = 8;
+			this->button2->Text = L"button2";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &Form1::button2_Click);
+			// 
+			// button3
+			// 
+			this->button3->Location = System::Drawing::Point(575, 12);
+			this->button3->Name = L"button3";
+			this->button3->Size = System::Drawing::Size(75, 23);
+			this->button3->TabIndex = 9;
+			this->button3->Text = L"button3";
+			this->button3->UseVisualStyleBackColor = true;
+			this->button3->Click += gcnew System::EventHandler(this, &Form1::button3_Click);
 			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(832, 418);
+			this->Controls->Add(this->button3);
+			this->Controls->Add(this->button2);
+			this->Controls->Add(this->button1);
 			this->Controls->Add(this->letter_d);
 			this->Controls->Add(this->gb_actions);
 			this->Controls->Add(this->squareGroup);
@@ -753,6 +799,58 @@ private: System::Void Form1_KeyDown(System::Object^  sender, System::Windows::Fo
 			 }
 		 }
 
+private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+		FileStream^ fs = gcnew FileStream( "DataFile.dat",FileMode::Create );
+
+      // Construct a BinaryFormatter and use it to serialize the data to the stream.
+      BinaryFormatter^ formatter = gcnew BinaryFormatter;
+      try
+      {
+         formatter->Serialize( fs,  ImageContainer::getContainer()->getAllFigures() );
+      }
+      catch ( SerializationException^ e ) 
+      {
+         Console::WriteLine( "Failed to serialize. Reason: {0}", e->Message );
+         throw;
+      }
+      finally
+      {
+         fs->Close();
+      }	
+		 }
+private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+		List<Figure^>^ tmp = nullptr;
+			 FileStream^ fs = gcnew FileStream( "DataFile.dat",FileMode::Open );
+      try
+      {
+         BinaryFormatter^ formatter = gcnew BinaryFormatter;
+
+         // Deserialize the hashtable from the file and 
+         // assign the reference to our local variable.
+         tmp = dynamic_cast<List<Figure^>^>(formatter->Deserialize( fs ));
+		 ImageContainer::getContainer()->setAllFigures(tmp); 
+		 ImageContainer::getContainer()->reDraw(this->pictureWindow);
+
+      }
+      catch ( SerializationException^ e ) 
+      {
+         Console::WriteLine( "Failed to deserialize. Reason: {0}", e->Message );
+         throw;
+      }
+      finally
+      {
+         fs->Close();
+      }
+
+
+      // To prove that the table deserialized correctly, display the keys/values.
+    
+		 }
+private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
+
+			  ImageContainer::getContainer()->setAllFigures(nullptr); 
+			   ImageContainer::getContainer()->reDraw(this->pictureWindow);
+		 }
 };
 
 }

@@ -1,6 +1,11 @@
 #pragma once
 #include "Figure.h"
+using namespace System;
+using namespace System::IO;
+using namespace System::Runtime::Serialization::Formatters::Binary;
+
 namespace CourseWork {
+[Serializable]
 ref class Square : public Figure //, public IDrawable, public IMovable
 {
 private:
@@ -14,6 +19,8 @@ public:
 	virtual Figure^ copy() override;
 	virtual void deform() override;
 	virtual void unDeform() override;
+	virtual bool  inComfortZone(Figure^ figure) override;
+	virtual double getComfortZone() override;
 };
 
 }

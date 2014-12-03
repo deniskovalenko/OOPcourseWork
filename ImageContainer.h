@@ -3,6 +3,8 @@
 namespace CourseWork {
 
 using namespace System;
+using namespace System::IO;
+using namespace System::Runtime::Serialization::Formatters::Binary;
 using namespace System::ComponentModel;
 using namespace System::Collections;
 using namespace System::Collections::Generic;
@@ -27,6 +29,8 @@ private:
 public:
 	static ImageContainer^ getContainer();
 
+	List<Figure^>^ getAllFigures();
+	void setAllFigures( List<Figure^>^ list);
 	void reDraw(PictureBox^ pictureBox);
 
 	void timer_Tick( System::Object^ sender, System::EventArgs^ e );
@@ -34,8 +38,6 @@ public:
 	void autoMove(bool move);
 	
 	void handleIntersections();
-
-	bool inComfortZone(Figure^ figure1, Figure^ figure2);
 
 	void pictureBox_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e);
 	
