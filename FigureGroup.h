@@ -20,7 +20,8 @@ public:
 	virtual void draw(Graphics^ g, Color^ color) override;
 	virtual void restoreState() override;
 
-
+	virtual void deform() override;
+	virtual void unDeform() override;
 };
 
 }

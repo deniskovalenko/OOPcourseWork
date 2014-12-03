@@ -30,5 +30,9 @@ void FigureGroup::draw(Graphics^ g, Color^ color){
 		figure->draw(g, figure->getColor());
 	}
 }
+void FigureGroup::deform() {}
+
+void FigureGroup::unDeform() {}
+
 
 }

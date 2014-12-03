@@ -668,6 +668,16 @@ private: System::Void change_btn_Click(System::Object^  sender, System::EventArg
 			 ImageContainer::getContainer()->reDraw(this->pictureWindow);
 		}
 }
+
+private: System::Void auto_move_Click(System::Object^  sender, System::EventArgs^  e) {
+			 if (auto_move->Text=="auto_move") 
+				{auto_move->Text="stop";
+				ImageContainer::getContainer()->autoMove(true);}
+			 else {auto_move->Text="auto_move";
+				ImageContainer::getContainer()->autoMove(false);}
+			 
+		 }
+
 private: System::Void select_figure_SelectedIndexChanged(System::Object^  sender, System::EventArgs^  e) {
 			 if(select_figure->SelectedIndex!=-1)
 			 { 
@@ -743,14 +753,6 @@ private: System::Void Form1_KeyDown(System::Object^  sender, System::Windows::Fo
 			 }
 		 }
 
-private: System::Void auto_move_Click(System::Object^  sender, System::EventArgs^  e) {
-			 if (auto_move->Text=="auto_move") 
-				{auto_move->Text="stop";
-				ImageContainer::getContainer()->autoMove(true);}
-			 else {auto_move->Text="auto_move";
-				ImageContainer::getContainer()->autoMove(false);}
-			 
-		 }
 };
 
 }

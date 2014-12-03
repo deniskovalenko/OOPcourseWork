@@ -15,6 +15,9 @@ protected:
 	String^ name;
 	bool isSelected;
 	bool isVisible;
+	bool color_forced;
+	Color saved_color;
+	bool isDeformed;
 	Bitmap^ canvas;
 	Color init_color;
 	Coordinates^ init_position;
@@ -25,6 +28,11 @@ public:
 	virtual void move(double dx, double dy)=0;
 	virtual void draw(Graphics^ g, Color^ color)=0;
 	virtual Figure^ copy()=0;
+	void forceColor(Color^ color);
+	void restoreColor();
+	virtual void deform()=0;
+	virtual void unDeform()=0;
+	
 
 	Figure(String^ name, Color color, Coordinates^ position);
 	void setName(String^ newName);
@@ -41,6 +49,8 @@ public:
 
 	bool checkVisible();
 	void setVisible(bool isVisible);
+
+	double distTo(Figure^ figure);
 };
 
 }

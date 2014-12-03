@@ -38,4 +38,8 @@ void Square::restoreState()
 	this->side=init_side;
 }
 
+void Square::deform() {}
+
+void Square::unDeform() {}
+
 }

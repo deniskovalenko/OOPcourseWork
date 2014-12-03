@@ -33,6 +33,10 @@ public:
 
 	void autoMove(bool move);
 	
+	void handleIntersections();
+
+	bool inComfortZone(Figure^ figure1, Figure^ figure2);
+
 	void pictureBox_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e);
 	
 	ImageContainer(void);

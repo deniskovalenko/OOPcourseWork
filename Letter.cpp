@@ -42,5 +42,8 @@ void Letter::restoreState()
 	this->position=init_position;
 	this->size=init_size;
 }
+void Letter::deform() {}
+
+void Letter::unDeform() {}
 
 }

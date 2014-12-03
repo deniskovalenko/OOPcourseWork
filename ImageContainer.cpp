@@ -40,6 +40,7 @@ ImageContainer^ ImageContainer::getContainer() {
 }
 
 void ImageContainer::reDraw(PictureBox^ pictureBox) {
+		handleIntersections();
 	if(this->pictureBox!=nullptr)
 		{
 			this->pictureBox->Paint -= gcnew System::Windows::Forms::PaintEventHandler(this, &ImageContainer::pictureBox_Paint);
@@ -48,6 +49,18 @@ void ImageContainer::reDraw(PictureBox^ pictureBox) {
 		createScreen(this->pictureBox->Width, this->pictureBox->Height);
 		this->pictureBox->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &ImageContainer::pictureBox_Paint);
 		this->pictureBox->Refresh();
+}
+
+void ImageContainer::handleIntersections() {
+	for each (Figure^ figure in figures) {
+		if (inComfortZone(current, figure)) {
+			figure->deform();
+			figure->forceColor(current->getColor()); //save to saved if not forsed yet, else only change, not save
+		} else {
+			figure->unDeform();
+			figure->restoreColor();
+		}
+	}
 }
 
 void ImageContainer::timer_Tick( System::Object^ sender, System::EventArgs^ e ) {
@@ -190,5 +203,10 @@ void ImageContainer::groupFigures() {
 	void ImageContainer::setDrawTraces(bool traces) {
 		this->traces = traces; 
 	}
+
+	bool ImageContainer::inComfortZone(Figure^ figure1, Figure^ figure2) {
+		return (figure1->distTo(figure2) < figure1->getComfortZone()+figure2->getComfortZone());
+	}
+
 
 }

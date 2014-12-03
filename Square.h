@@ -12,6 +12,8 @@ public:
 	virtual void move(double dx, double dy) override;
 	virtual void draw(Graphics^ g, Color^ color) override;
 	virtual Figure^ copy() override;
+	virtual void deform() override;
+	virtual void unDeform() override;
 };
 
 }
