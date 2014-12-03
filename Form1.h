@@ -98,6 +98,7 @@ namespace CourseWork {
 
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
+	private: System::Windows::Forms::Button^  auto_move;
 
 
 
@@ -153,6 +154,7 @@ namespace CourseWork {
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->action_color = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->auto_move = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureWindow))->BeginInit();
 			this->squareGroup->SuspendLayout();
 			this->letter_d->SuspendLayout();
@@ -413,6 +415,7 @@ namespace CourseWork {
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->auto_move);
 			this->groupBox1->Controls->Add(this->groupAll);
 			this->groupBox1->Controls->Add(this->btn_restore);
 			this->groupBox1->Location = System::Drawing::Point(6, 223);
@@ -536,6 +539,16 @@ namespace CourseWork {
 			this->label1->TabIndex = 7;
 			this->label1->Text = L"Color";
 			// 
+			// auto_move
+			// 
+			this->auto_move->Location = System::Drawing::Point(7, 35);
+			this->auto_move->Name = L"auto_move";
+			this->auto_move->Size = System::Drawing::Size(69, 23);
+			this->auto_move->TabIndex = 2;
+			this->auto_move->Text = L"auto_move";
+			this->auto_move->UseVisualStyleBackColor = true;
+			this->auto_move->Click += gcnew System::EventHandler(this, &Form1::auto_move_Click);
+			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -551,7 +564,6 @@ namespace CourseWork {
 			this->Text = L"C";
 			this->Load += gcnew System::EventHandler(this, &Form1::Form1_Load);
 			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyDown);
-			this->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Form1::Form1_KeyPress);
 			this->KeyUp += gcnew System::Windows::Forms::KeyEventHandler(this, &Form1::Form1_KeyUp);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureWindow))->EndInit();
 			this->squareGroup->ResumeLayout(false);
@@ -731,7 +743,13 @@ private: System::Void Form1_KeyDown(System::Object^  sender, System::Windows::Fo
 			 }
 		 }
 
-private: System::Void Form1_KeyPress(System::Object^  sender, System::Windows::Forms::KeyPressEventArgs^  e) {
+private: System::Void auto_move_Click(System::Object^  sender, System::EventArgs^  e) {
+			 if (auto_move->Text=="auto_move") 
+				{auto_move->Text="stop";
+				ImageContainer::getContainer()->autoMove(true);}
+			 else {auto_move->Text="auto_move";
+				ImageContainer::getContainer()->autoMove(false);}
+			 
 		 }
 };
 

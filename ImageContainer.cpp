@@ -21,6 +21,14 @@ ImageContainer::ImageContainer(void)
 
 	imageCenter = gcnew Coordinates(0,0);
 
+	auto_move = false;
+
+	timer = gcnew Timer();
+	timer->Enabled = false;
+	timer->Interval = 200;
+	
+	time = 0;
+	speed = 2;
 }
 
 ImageContainer^ ImageContainer::getContainer() {
@@ -40,6 +48,22 @@ void ImageContainer::reDraw(PictureBox^ pictureBox) {
 		createScreen(this->pictureBox->Width, this->pictureBox->Height);
 		this->pictureBox->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &ImageContainer::pictureBox_Paint);
 		this->pictureBox->Refresh();
+}
+
+void ImageContainer::timer_Tick( System::Object^ sender, System::EventArgs^ e ) {
+	if (auto_move) {
+		current->move(speed,speed*speed);
+		reDraw(this->pictureBox);
+	}
+}
+
+void ImageContainer::autoMove(bool move) {
+	if (move) {
+		timer->Enabled = true;
+		auto_move=true; 
+		timer->Tick += gcnew System::EventHandler(this, &ImageContainer::timer_Tick);
+	} else { timer->Enabled = false; 
+			 auto_move=false;}
 }
 
 void ImageContainer::pictureBox_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e) {

@@ -20,10 +20,18 @@ private:
 	Figure^ current;
 	Coordinates^ imageCenter;
 	bool traces;
+	Timer^ timer;
+	double time;
+	double speed;
+	bool auto_move;
 public:
 	static ImageContainer^ getContainer();
 
 	void reDraw(PictureBox^ pictureBox);
+
+	void timer_Tick( System::Object^ sender, System::EventArgs^ e );
+
+	void autoMove(bool move);
 	
 	void pictureBox_Paint(System::Object^  sender, System::Windows::Forms::PaintEventArgs^  e);
 	
