@@ -875,6 +875,7 @@ private: System::Void load_btn_Click(System::Object^  sender, System::EventArgs^
          }
       }
 		gb_actions->Visible=true;    
+		ComboboxUpdate();
 }
 private: System::Void reset_btn_Click(System::Object^  sender, System::EventArgs^  e) {
 		ImageContainer::getContainer()->removeAll(); 
@@ -882,6 +883,7 @@ private: System::Void reset_btn_Click(System::Object^  sender, System::EventArgs
 		gb_actions->Visible=false;
 		squareGroup->Visible=false;
 		letter_d->Visible=false;
+		ComboboxUpdate();
 }
 
 };
