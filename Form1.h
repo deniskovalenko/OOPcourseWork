@@ -106,9 +106,14 @@ using namespace System::Runtime::Serialization::Formatters::Binary;
 	private: System::Windows::Forms::Label^  label6;
 	private: System::Windows::Forms::Label^  label7;
 	private: System::Windows::Forms::Button^  auto_move;
-	private: System::Windows::Forms::Button^  button1;
-	private: System::Windows::Forms::Button^  button2;
-	private: System::Windows::Forms::Button^  button3;
+	private: System::Windows::Forms::Button^  save_btn;
+
+	private: System::Windows::Forms::Button^  load_btn;
+	private: System::Windows::Forms::Button^  reset_btn;
+	private: System::Windows::Forms::SaveFileDialog^  saveFileDialog1;
+	private: System::Windows::Forms::OpenFileDialog^  openFileDialog1;
+
+
 
 
 
@@ -165,9 +170,11 @@ using namespace System::Runtime::Serialization::Formatters::Binary;
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->action_color = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-			this->button2 = (gcnew System::Windows::Forms::Button());
-			this->button3 = (gcnew System::Windows::Forms::Button());
+			this->save_btn = (gcnew System::Windows::Forms::Button());
+			this->load_btn = (gcnew System::Windows::Forms::Button());
+			this->reset_btn = (gcnew System::Windows::Forms::Button());
+			this->saveFileDialog1 = (gcnew System::Windows::Forms::SaveFileDialog());
+			this->openFileDialog1 = (gcnew System::Windows::Forms::OpenFileDialog());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^  >(this->pictureWindow))->BeginInit();
 			this->squareGroup->SuspendLayout();
 			this->letter_d->SuspendLayout();
@@ -562,44 +569,48 @@ using namespace System::Runtime::Serialization::Formatters::Binary;
 			this->label1->TabIndex = 7;
 			this->label1->Text = L"Color";
 			// 
-			// button1
+			// save_btn
 			// 
-			this->button1->Location = System::Drawing::Point(348, 13);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
-			this->button1->TabIndex = 7;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &Form1::button1_Click);
+			this->save_btn->Location = System::Drawing::Point(101, 12);
+			this->save_btn->Name = L"save_btn";
+			this->save_btn->Size = System::Drawing::Size(75, 23);
+			this->save_btn->TabIndex = 7;
+			this->save_btn->Text = L"Save";
+			this->save_btn->UseVisualStyleBackColor = true;
+			this->save_btn->Click += gcnew System::EventHandler(this, &Form1::save_btn_Click);
 			// 
-			// button2
+			// load_btn
 			// 
-			this->button2->Location = System::Drawing::Point(466, 12);
-			this->button2->Name = L"button2";
-			this->button2->Size = System::Drawing::Size(75, 23);
-			this->button2->TabIndex = 8;
-			this->button2->Text = L"button2";
-			this->button2->UseVisualStyleBackColor = true;
-			this->button2->Click += gcnew System::EventHandler(this, &Form1::button2_Click);
+			this->load_btn->Location = System::Drawing::Point(187, 12);
+			this->load_btn->Name = L"load_btn";
+			this->load_btn->Size = System::Drawing::Size(75, 23);
+			this->load_btn->TabIndex = 8;
+			this->load_btn->Text = L"Load";
+			this->load_btn->UseVisualStyleBackColor = true;
+			this->load_btn->Click += gcnew System::EventHandler(this, &Form1::load_btn_Click);
 			// 
-			// button3
+			// reset_btn
 			// 
-			this->button3->Location = System::Drawing::Point(575, 12);
-			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(75, 23);
-			this->button3->TabIndex = 9;
-			this->button3->Text = L"button3";
-			this->button3->UseVisualStyleBackColor = true;
-			this->button3->Click += gcnew System::EventHandler(this, &Form1::button3_Click);
+			this->reset_btn->Location = System::Drawing::Point(12, 12);
+			this->reset_btn->Name = L"reset_btn";
+			this->reset_btn->Size = System::Drawing::Size(75, 23);
+			this->reset_btn->TabIndex = 9;
+			this->reset_btn->Text = L"Reset";
+			this->reset_btn->UseVisualStyleBackColor = true;
+			this->reset_btn->Click += gcnew System::EventHandler(this, &Form1::reset_btn_Click);
+			// 
+			// openFileDialog1
+			// 
+			this->openFileDialog1->FileName = L"openFileDialog1";
 			// 
 			// Form1
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(832, 418);
-			this->Controls->Add(this->button3);
-			this->Controls->Add(this->button2);
-			this->Controls->Add(this->button1);
+			this->Controls->Add(this->reset_btn);
+			this->Controls->Add(this->load_btn);
+			this->Controls->Add(this->save_btn);
 			this->Controls->Add(this->letter_d);
 			this->Controls->Add(this->gb_actions);
 			this->Controls->Add(this->squareGroup);
@@ -761,23 +772,27 @@ private: System::Void Form1_KeyUp(System::Object^  sender, System::Windows::Form
 			 {
 				 e->Handled = true;
 				ImageContainer::getContainer()->getCurrent()->move(0,1);	
+				 ImageContainer::getContainer()->reDraw(this->pictureWindow);
 			 }
 			 else if(e->KeyCode == Keys::Down)
 			 {
 				 e->Handled = true;
 				 ImageContainer::getContainer()->getCurrent()->move(0,-1);
+				  ImageContainer::getContainer()->reDraw(this->pictureWindow);
 			 }
 			 else if(e->KeyCode == Keys::Left)
 			 {
 				 e->Handled = true;
 				 ImageContainer::getContainer()->getCurrent()->move(-1,0);
+				  ImageContainer::getContainer()->reDraw(this->pictureWindow);
 			 }
 			 else if(e->KeyCode == Keys::Right)
 			 {
 				 e->Handled = true;
 				 ImageContainer::getContainer()->getCurrent()->move(1,0);
+				  ImageContainer::getContainer()->reDraw(this->pictureWindow);
 			 }
-			 ImageContainer::getContainer()->reDraw(this->pictureWindow);
+			
 		 }
 
 private: System::Void Form1_KeyDown(System::Object^  sender, System::Windows::Forms::KeyEventArgs^  e) {
@@ -799,58 +814,76 @@ private: System::Void Form1_KeyDown(System::Object^  sender, System::Windows::Fo
 			 }
 		 }
 
-private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
-		FileStream^ fs = gcnew FileStream( "DataFile.dat",FileMode::Create );
+private: System::Void save_btn_Click(System::Object^  sender, System::EventArgs^  e) {
 
-      // Construct a BinaryFormatter and use it to serialize the data to the stream.
-      BinaryFormatter^ formatter = gcnew BinaryFormatter;
-      try
+      saveFileDialog1->Filter = "bin files (*.bin)|*.dat|All files (*.*)|*.*";
+      //saveFileDialog1->FilterIndex = 2;
+      //saveFileDialog1->RestoreDirectory = true;
+
+	 
+      String^ filestr;
+	  FileStream^ fs ;
+	  if ( saveFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK )
       {
-         formatter->Serialize( fs,  ImageContainer::getContainer()->getAllFigures() );
-      }
-      catch ( SerializationException^ e ) 
-      {
-         Console::WriteLine( "Failed to serialize. Reason: {0}", e->Message );
-         throw;
-      }
-      finally
-      {
-         fs->Close();
-      }	
+         if ( (fs =safe_cast<System::IO::FileStream^>( saveFileDialog1->OpenFile()) )!= nullptr ) {
+			  BinaryFormatter^ formatter = gcnew BinaryFormatter;
+			 //  = gcnew FileStream(filestr ,FileMode::Create );
+			  try
+			  {
+				 formatter->Serialize( fs,  ImageContainer::getContainer()->getAllFigures() );
+			  }
+			  catch ( SerializationException^ e ) 
+			  {
+				 Console::WriteLine( "Failed to serialize. Reason: {0}", e->Message );
+				 throw;
+			  }
+			  finally
+			  {
+				 fs->Close();
+			  }	
+					
+        
 		 }
-private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
+      }
+	
+}
+private: System::Void load_btn_Click(System::Object^  sender, System::EventArgs^  e) {
 		List<Figure^>^ tmp = nullptr;
-			 FileStream^ fs = gcnew FileStream( "DataFile.dat",FileMode::Open );
-      try
+		FileStream^ fs;
+		
+		if ( openFileDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK )
       {
-         BinaryFormatter^ formatter = gcnew BinaryFormatter;
+         if ((fs = safe_cast<System::IO::FileStream^>( openFileDialog1->OpenFile()))  != nullptr )
+         {
+					   try
+				  {
+					 BinaryFormatter^ formatter = gcnew BinaryFormatter;
+					 tmp = dynamic_cast<List<Figure^>^>(formatter->Deserialize( fs ));
+					 ImageContainer::getContainer()->setAllFigures(tmp); 
+					 ImageContainer::getContainer()->reDraw(this->pictureWindow);
 
-         // Deserialize the hashtable from the file and 
-         // assign the reference to our local variable.
-         tmp = dynamic_cast<List<Figure^>^>(formatter->Deserialize( fs ));
-		 ImageContainer::getContainer()->setAllFigures(tmp); 
-		 ImageContainer::getContainer()->reDraw(this->pictureWindow);
-
+				  }
+				  catch ( SerializationException^ e ) 
+				  {
+					 Console::WriteLine( "Failed to deserialize. Reason: {0}", e->Message );
+					 throw;
+				  }
+				  finally
+				  {
+					 fs->Close();
+				  }
+         }
       }
-      catch ( SerializationException^ e ) 
-      {
-         Console::WriteLine( "Failed to deserialize. Reason: {0}", e->Message );
-         throw;
-      }
-      finally
-      {
-         fs->Close();
-      }
+		gb_actions->Visible=true;    
+}
+private: System::Void reset_btn_Click(System::Object^  sender, System::EventArgs^  e) {
+		ImageContainer::getContainer()->removeAll(); 
+		ImageContainer::getContainer()->reDraw(this->pictureWindow);
+		gb_actions->Visible=false;
+		squareGroup->Visible=false;
+		letter_d->Visible=false;
+}
 
-
-      // To prove that the table deserialized correctly, display the keys/values.
-    
-		 }
-private: System::Void button3_Click(System::Object^  sender, System::EventArgs^  e) {
-
-			  ImageContainer::getContainer()->setAllFigures(nullptr); 
-			   ImageContainer::getContainer()->reDraw(this->pictureWindow);
-		 }
 };
 
 }

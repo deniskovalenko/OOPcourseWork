@@ -43,7 +43,7 @@ for each (Figure^ fig in group) {
 }
 
 bool FigureGroup::inComfortZone(Figure^ figure) {
-	if (this==figure) return false;
+	if (this==figure || figure==nullptr) {return false;}
 	for each (Figure^ fig in group) {
 		if (fig->inComfortZone(figure)) {return true;}
 	}

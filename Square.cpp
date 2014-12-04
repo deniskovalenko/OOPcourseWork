@@ -40,7 +40,7 @@ void Square::restoreState()
 }
 
 	bool Square::inComfortZone(Figure^ figure) {
-		if (this==figure) return false;
+		if (this==figure || figure==nullptr) { return false; }
 		return (this->distTo(figure) < this->getComfortZone()+figure->getComfortZone());
 	}
 	double Square::getComfortZone() {

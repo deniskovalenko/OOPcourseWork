@@ -54,7 +54,7 @@ void Letter::unDeform() {
 	isDeformed=false;}
 }
 	bool Letter::inComfortZone(Figure^ figure) {
-		if (this==figure) return false;
+		if (this==figure || figure==nullptr) { return false;}
 		return (this->distTo(figure) < this->getComfortZone()+figure->getComfortZone());
 	}
 

@@ -40,7 +40,7 @@ ImageContainer^ ImageContainer::getContainer() {
 }
 
 void ImageContainer::reDraw(PictureBox^ pictureBox) {
-		handleIntersections();
+	handleIntersections();
 	if(this->pictureBox!=nullptr)
 		{
 			this->pictureBox->Paint -= gcnew System::Windows::Forms::PaintEventHandler(this, &ImageContainer::pictureBox_Paint);
@@ -67,10 +67,10 @@ void ImageContainer::handleIntersections() {
 					if (!current->inComfortZone(figure)) {
 						current->unDeform();
 						current->restoreColor();
-				}
-		}	
+					}
+				}	
+			}
 		}
-	}
 	}
 
 }
@@ -107,6 +107,12 @@ void ImageContainer::addFigure(Figure^ figure) {
 		}
 		figures->Add(figure);
 		selectByName(figure->getName());
+}
+
+void ImageContainer::removeAll() {
+	current=nullptr;
+figures->Clear();
+int test = figures->Count;
 }
 
 List<String^>^ ImageContainer::getFigNames() {
@@ -155,7 +161,7 @@ Figure^ ImageContainer::getCurrent() {
 	return current;
 }
 void ImageContainer::deleteCurrent() {
-	if(current!=nullptr)
+	if(current!=nullptr) 
 		{
 			deleteByName(current->getName());
 		}

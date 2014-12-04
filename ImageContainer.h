@@ -31,6 +31,8 @@ public:
 
 	List<Figure^>^ getAllFigures();
 	void setAllFigures( List<Figure^>^ list);
+
+	void removeAll();
 	void reDraw(PictureBox^ pictureBox);
 
 	void timer_Tick( System::Object^ sender, System::EventArgs^ e );
